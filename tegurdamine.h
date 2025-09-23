@@ -7,10 +7,10 @@
 #include "j22giteoreem.h"
 #include "tegurdamine.h"
 
-int eukleidese_algoritm(int a, int b);
-bool kasOnRuut(long long arv);
-bool kasAlgarv(long long arv);
+int leiaSuurimÜhistegur(int a, int b);
+bool kasOnRuut(long long a);
+bool kasOnAlgarv(long long a);
 bool isPerfectSquare(long long n);
-std::pair<long long, long long> fermat_meetod(long long arv);
-void tegurda_arv(long long arv, std::map<long long, long long>& m);
+std::pair<long long, long long> leiaKaksTegurit(long long a);
+void tegurdaArv(long long a, std::map<long long, long long>& algtegurid);
 #endif //TEGURDAMINE_H

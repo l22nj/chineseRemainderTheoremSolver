@@ -7,75 +7,103 @@
 #include <cmath>
 using namespace std;
 
-int eukleidese_algoritm(int a, int b) // leiab suurima ühisteguri kahe arvu vahel
-{
-    int syt{a}, j22k{b}, vahej22k;
-    while (true)
-    {
-        vahej22k = j22k;
-        j22k = syt % j22k;
-        syt = vahej22k;
-
-        if (j22k == 0) return abs(syt);
+/**
+ * Leiab kahe täisarvu suurima ühisteguri Eukleidese algoritmi abil
+ * @param a Täisarv
+ * @param b Täisarv
+ * @return Arvude 'a' ja 'b' suurim ühistegur
+ */
+int leiaSuurimÜhistegur(int a, int b) {
+    while (true) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+        if (b == 0)
+            return abs(a);
     }
 }
 
-bool kasAlgarv(long long arv)
-{
-    if (abs(arv) == 1) return false;
-    for (long long i{2}; i <= sqrtl(abs(arv)); i++)
-        if (arv % i == 0)
+/**
+ * Kontrollib, kas sisendiks on algarv
+ * @param a Täisarv
+ * @return Tõeväärtus, kas 'a' on algarv
+ */
+bool kasOnAlgarv(long long a) {
+    if (abs(a) == 1)
+        return false;
+    for (long long i{2}; i <= sqrtl(abs(a)); i++)
+        if (a % i == 0)
             return false;
     return true;
 }
 
-bool kasOnRuut (long long arv)
-{
-    long double arv2 = sqrtl(arv);
-    if (floor(arv2) == ceil(arv2)) return true;
+/**
+ * Kontrollib, kas sisendiks on täisruut
+ * @param a Täisarv
+ * @return Tõeväärtus, kas arv 'a' on mõne täisarvu ruut
+ */
+bool kasOnRuut (long long a) {
+    long double arv2 = sqrtl(a);
+    if (floor(arv2) == ceil(arv2))
+        return true;
     return false;
 }
 
-pair<long long, long long> fermat_meetod(long long arv) // info.txt natuke seletatud
-{
-    if (arv < 3) return make_pair(1,arv);
-    if (arv % 2 == 0) return make_pair(2, arv/2);
-    if (kasAlgarv(arv)) return make_pair(1, arv);
+/**
+ * Tegurdab arvu 'a' kaheks väiksemaks täisarvuks (Fermat' meetod)
+ * @param a Täisarv
+ * @return Pair, kus on kaks täisarvu 'a' tegurit
+ */
+pair<long long, long long> leiaKaksTegurit(long long a) {
+    if (a < 3)
+        return make_pair(1,a);
+    if (a % 2 == 0)
+        return make_pair(2, a/2);
+    if (kasOnAlgarv(a))
+        return make_pair(1, a);
 
-    long long piir = (arv + 1) * (arv + 1) / 4, b;
+    long long piir = (a + 1) * (a + 1) / 4;
 
-    for (long long a = ceil(sqrtl(arv)); a < piir; ++a)
-    {
-        b = a*a - arv;
-        if (kasOnRuut(b))
-        {
+    for (long long i = ceil(sqrtl(a)); i < piir; ++i) {
+        long long b = i*i - a;
+        if (kasOnRuut(b)) {
             b = sqrtl(b);
-            return make_pair(a-b, a+b);
+            return make_pair(i-b, i+b);
         }
     }
-    cout << "väike error (ilmselt liiga suured arvud selle programmi jaoks): " << arv << endl;
+    cout << "väike error (ilmselt liiga suured arvud selle programmi jaoks): " << a << endl;
     return make_pair(0, 0);
 }
 
-void tegurda_arv(long long arv, map<long long, long long>& m) // viib arvu algteguriteks Fermat' meetodi abil ja salvestab m
-{
-    if (abs(arv) == 1) return;
+/**
+ * Salvestab map-i 'algtegurid' arvu 'a' algtegurid pair-idena
+ * @param a Tegurdatav arv
+ * @param algtegurid Map paaridest, mille esimesel kohal on arvus esinev algarv ning teisel kohal selle algarvu aste
+ */
+void tegurdaArv(long long a, map<long long, long long>& algtegurid) {
+    if (abs(a) == 1)
+        return;
 
-    auto paar{fermat_meetod(arv)};
-    long long first{abs(paar.first)}, second{abs(paar.second)};
+    auto paar{leiaKaksTegurit(a)};
+    long long first = abs(paar.first);
+    long long second = abs(paar.second);
 
-    if (kasAlgarv(first))
-    {
-        if (m.contains(first)) m[first] += 1;
-        else m[first] = 1;
+    if (kasOnAlgarv(first)) {
+        if (algtegurid.contains(first))
+            algtegurid[first] += 1;
+        else
+            algtegurid[first] = 1;
     }
-    else tegurda_arv(first, m);
+    else
+        tegurdaArv(first, algtegurid);
 
-    if (kasAlgarv(second))
-    {
-        if (m.contains(second)) m[second] += 1;
-        else m[second] = 1;
+    if (kasOnAlgarv(second)) {
+        if (algtegurid.contains(second))
+            algtegurid[second] += 1;
+        else
+            algtegurid[second] = 1;
     }
-    else tegurda_arv(second, m);
+    else
+        tegurdaArv(second, algtegurid);
 }
 
