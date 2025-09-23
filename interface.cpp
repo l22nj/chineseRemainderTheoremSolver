@@ -13,28 +13,28 @@ using namespace std;
  * Kuvab vaadeldava võrrandi konsoolis
  * @param v6rrand Kuvatav võrrand
  */
-void kuvaVõrrand(V6rrand v6rrand) {
-    for (size_t i{0}; i < v6rrand.v6rrandid.size(); ++i) {
-        cout << v6rrand.v6rrandid[i].first << " kongruentne arvuga " << v6rrand.v6rrandid[i].second.j22k <<
-            " mooduli " << v6rrand.v6rrandid[i].second.moodul << " järgi." << endl;
+void kuvaVõrrand(Vorrandisusteem v6rrand) {
+    for (size_t i{0}; i < v6rrand.vorrandid.size(); ++i) {
+        cout << v6rrand.vorrandid[i].first << " kongruentne arvuga " << v6rrand.vorrandid[i].second.jaak <<
+            " mooduli " << v6rrand.vorrandid[i].second.moodul << " järgi." << endl;
     }
 }
 
-Polünoom muudaTekstPolünoomiks(const string& s) {
+Polunoom muudaTekstPolünoomiks(const string& s) {
     vector<int> v;
     string sõne = s;
     stringstream ss(sõne);
     long long i;
     while (ss >> i)
         v.insert(v.begin(), i);
-    Polünoom pol{v};
+    Polunoom pol{v};
     return pol;
 }
 
 void mainloop() {
-    V6rrand v6rrand;
-    vector<V6rrand> v6rrandid;
-    vector<J22k> tulemus;
+    Vorrandisusteem v6rrand;
+    vector<Vorrandisusteem> v6rrandid;
+    vector<Jaak> tulemus;
     int j, m;
     string sõne_p;
     string s;
@@ -50,10 +50,10 @@ void mainloop() {
         cout << "Sisesta jääk ja moodul (nt '2 9' - st jääk 2 mooduli 9 järgi): ";
         getline(cin, s);
         stringstream(s) >> j >> m;
-        v6rrand.lisa_v6rrand(J22k(j, Moodul(m)), muudaTekstPolünoomiks(sõne_p));
+        v6rrand.lisaVorrand(Jaak(j, Moodul(m)), muudaTekstPolünoomiks(sõne_p));
         sõne_p = "";
     }
-    if (v6rrand.v6rrandid.empty()) {
+    if (v6rrand.vorrandid.empty()) {
         cout << "Nägemiseni!";
         return;
     }
@@ -64,12 +64,12 @@ void mainloop() {
     cout << endl << "Sellest tulenevad lahenduvad süsteemid on (eraldatud tühja reaga): " << endl;
     for (auto el : v6rrandid) {
         kuvaVõrrand(el);
-        tulemus.push_back(el.lahenda_systeem()); // kohe lahendab ära kah
+        tulemus.push_back(el.lahendaSusteem()); // kohe lahendab ära kah
         cout << endl;
     }
     cout << "Seega iga x avaldub ühel järgnevatest kujudest: " << endl;
     for (auto el : tulemus)
-        cout << "x = " << el.j22k << " + t*" << el.moodul <<endl;
+        cout << "x = " << el.jaak << " + t*" << el.moodul <<endl;
     cout << "Kus t on suvaline täisarv.";
 }
 
