@@ -1,0 +1,65 @@
+Hiina jäägiteoreemi abil kongruentsisüsteemide lahendaja!
+
+Mis on hiina jäägiteoreem?
+https://en.wikipedia.org/wiki/Chinese_remainder_theorem
+(annab tingimused üheselt lahenduva süsteemi jaoks mingi mooduli järgi)
+
+See valem kehtib ainult juhul, kui kongruentsid on antud kujul
+	x kongr a mod b	.
+
+Minu programmis saab anda kongruentse ette ka kujul
+	polünoom kongr a mod b .
+	
+Valemi toimimiseks on aga vaja, et iga kongruents oleks üheselt lahenduv - polünoomidega kongruentsidel on aga üldjuhul mitu lahendit (lahendi all mõtlen kongruentsi, mis avaldub kujul x kongr a mod b).
+	*sellist polünoomi kohta käiva kongruentsi lahendamist käsitletakse Arvuteooria 1. osa kursuses. pmst vaja mängida tuletisega (Polünoom::lahenda_kongruents(J22k))
+
+Minu programm leiab sisestatud kongruentsisüsteemis igale kongruentsile eraldi kõik võimalikud lahendid ning lahendab ära neist kõikvõimalikud kokkupandud süsteemid, kus iga kongruents avaldub eraldi kujul x kongr a mod b . Kui ühtegi sellist lahenduvat süsteemi ei leidu, annab programm vastava teate.
+
+Nii hiina jäägiteoreem kui ka meetod polünoomi kohta käiva kongruentsi lahendamisest ei toimi aga suvaliste moodulite puhul - mõlemal juhul on kasulik, kui moodulid on kujul p^n, kus p on mingi algarv ja n suvaline naturaalarv. Iga kongruentsisüsteemi ükskõik milliste moodulitega saab aga viia samaväärsele kujule, kus moodulid sellisel kujul avalduvad. Selle jaoks on vaja moodulid algarvulisele kujule. Teen seda Fermat' meetodi abil, kus kasutan ära omadust, et iga paaritu arv avaldub mingisuguse kahe ruudu vahena, ning
+	a^2 - b^2 = (a-b)(a+b) .
+
+
+KUIDAS PROGRAMMI KASUTADA?
+tuleb panna käima ja siis mainloop() käivitub; kogu infovahetus ja info kuvamine käib konsooli kaudu.
+
+kui proovida suvalisi polünoome, siis selgub, et päris vähesed neist on lahenduvad.
+
+enamus testimist mõistlik ilmselt teha sisestades polünoomiks lihtsalt x (ehk konsoolis '1 0') - või siis mingi kordaja a ka ette (ehk konsoolis 'a 0'). sellisel kujul süsteemide jaoks on ka netis palju lahendajaid (üks mõistlik nt https://chineseremaindertheorem.com/calculator.php)
+
+kui liiga suured arvud mooduliteks panna, siis võib programmis sees sisse visata miinuseid - kõigi moodulite korrutis peaks jääma alla long long maksimumi
+
+Polünoomid::lahenda_kongruents(J22k) saab testida lihtsalt sisestades 1 polünoomi ja 1 jäägi ja 1 mooduli
+
+V6rrand::lahenda_systeem() saab testida sisestades igaks polünoomiks '1 0' ja igaks mooduliks p^n, kus p mingi algarv ja n mingi naturaalarv (ning kõik p-d on erinevad); jäägid võivad olla suvalised
+
+Moodul::tegurda_ennast() (ehk arvude algarvulisele kujule viimist) saab testida sisestades polünoomi '1 0', suvalise jäägi ja mooduliks mingi tegurdatava arvu (ehkki nii näitab tegureid kujul p^n, p ja n eraldi ta välja otseselt ei too).
+
+kui piisavalt palju testida, leiab kindlasti süsteemi, millel on palju lahendeid (nt katsetada ax kongr ..., kus a-l ja moodulil on olemas mingi ühistegur) - siis näha, mida programm suudab
+
+
+
+V6rrand::lihtsusta(V6rrand, vector<V6rrand>) oli päris keeruline :S
+
+PS vigase sisendiga programm hakkama ei saa - aga programmi olemust arvestades ei tohiks vigase sisendiga liiga palju arvestada vaja olla (kuigi oleks mugav ikka)
+
+1 0
+3 86
+1 0
+2 27
+1 0
+5 71
+
+1 0 0 1
+2 9
+
+1 0 0 1
+2 9
+3 0 2
+2 8
+
+3 9 28 8 0 0 1 2
+2 17
+3 0
+3 21
+
+
