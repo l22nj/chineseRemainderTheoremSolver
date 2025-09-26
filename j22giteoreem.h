@@ -72,8 +72,10 @@ public:
     }
     Jaak lahendaSusteem();
     bool kontroll();
+    void tegurdaMoodulid();
+    int lihtsusta(Vorrandisusteem& vorrand, std::vector<Vorrandisusteem>& tulemus);
 };
 
-int lihtsusta(Vorrandisusteem& vorrand, std::vector<Vorrandisusteem>& tulemus);
+
 
 #endif //J22GITEOREEM_H

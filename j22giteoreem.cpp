@@ -276,6 +276,21 @@ bool Vorrandisusteem::kontroll() {
         kontrollvektor.push_back(jaak.moodul.algarv());
     } return true;
 }
+void Vorrandisusteem::tegurdaMoodulid() {
+    vector<pair<Polunoom, Jaak>> uuedVorrandid;
+    map<long long, long long> tegurdatudArv;
+    for (auto paar : vorrandid) {
+        paar.second.moodul.tegurdaEnnast();
+        for (auto tegur : paar.second.moodul.tegurid)
+            uuedVorrandid.emplace_back(
+                paar.first, Jaak(paar.second.jaak, Moodul(tegur.first, tegur.second))
+                );
+        tegurdatudArv.clear();
+    } vorrandid.clear();
+    for (auto paar : uuedVorrandid) {
+        vorrandid.push_back(paar);
+    }
+}
 
 /**
  * Leiab kõik sisendiks antud võrrandisüsteemist lahenduvad võrrandisüsteemid, kus polünoomid on kujul 'x'
@@ -284,7 +299,7 @@ bool Vorrandisusteem::kontroll() {
  * @param tulemus Vektor võrrandisüsteemidest, kuhu salvestab kõik sobivad süsteemid
  * @return 1, kui 'tulemus' pole tühi vektor, 0 muidu
  */
-int lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>& tulemus) {
+int Vorrandisusteem::lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>& tulemus) {
     Polunoom x{};
     Vorrandisusteem vahevorrand; // Siia tuleb esialgne võrrand algtegurites
     map<long long, long long> tegurdatudArv;
