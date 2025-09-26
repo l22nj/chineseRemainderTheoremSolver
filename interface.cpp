@@ -14,10 +14,7 @@ using namespace std;
  * @param v6rrand Kuvatav võrrand
  */
 void kuvaVõrrand(Vorrandisusteem v6rrand) {
-    for (size_t i{0}; i < v6rrand.vorrandid.size(); ++i) {
-        cout << v6rrand.vorrandid[i].first << " kongruentne arvuga " << v6rrand.vorrandid[i].second.jaak <<
-            " mooduli " << v6rrand.vorrandid[i].second.moodul << " järgi." << endl;
-    }
+    cout << v6rrand;
 }
 
 Polunoom muudaTekstPolünoomiks(const string& s) {
@@ -59,7 +56,7 @@ void mainloop() {
     }
     cout << endl << "Teie sisestatud võrrandisüsteem: " << endl;
     kuvaVõrrand(v6rrand);
-    if (lihtsusta(v6rrand, v6rrandid) == 0)
+    if (v6rrand.lihtsusta(v6rrandid) == 0)
         return;
     cout << endl << "Sellest tulenevad lahenduvad süsteemid on (eraldatud tühja reaga): " << endl;
     for (auto el : v6rrandid) {

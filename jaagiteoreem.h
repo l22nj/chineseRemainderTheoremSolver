@@ -72,8 +72,12 @@ public:
     }
     Jaak lahendaSusteem();
     bool kontroll();
+    void tegurdaMoodulid();
+    std::vector<std::vector<Jaak>> leiaPolunoomideLahendid();
+    int lihtsusta(std::vector<Vorrandisusteem>& tulemus);
+    friend std::ostream& operator<<(std::ostream& os, Vorrandisusteem& vs);
 };
 
-int lihtsusta(Vorrandisusteem& vorrand, std::vector<Vorrandisusteem>& tulemus);
+
 
 #endif //J22GITEOREEM_H
