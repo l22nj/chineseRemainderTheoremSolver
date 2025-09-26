@@ -6,7 +6,7 @@
 #include <cmath>
 #include <ranges>
 #include "tegurdamine.h"
-#include "j22giteoreem.h"
+#include "jaagiteoreem.h"
 #include <algorithm>
 
 using namespace std;
@@ -276,6 +276,10 @@ bool Vorrandisusteem::kontroll() {
         kontrollvektor.push_back(jaak.moodul.algarv());
     } return true;
 }
+
+/**
+ * Viib võrrandi samaväärsele kujule, kus kõik moodulid on kujul p^n, kus p on algarv
+ */
 void Vorrandisusteem::tegurdaMoodulid() {
     vector<pair<Polunoom, Jaak>> uuedVorrandid;
     map<long long, long long> tegurdatudArv;
@@ -289,63 +293,66 @@ void Vorrandisusteem::tegurdaMoodulid() {
     } vorrandid.clear();
     for (auto paar : uuedVorrandid) {
         vorrandid.push_back(paar);
+        cout << paar.first << " + " << paar.second.jaak << " + " << paar.second.moodul;
     }
 }
 
 /**
- * Leiab kõik sisendiks antud võrrandisüsteemist lahenduvad võrrandisüsteemid, kus polünoomid on kujul 'x'
- * (Üks õudne ja keeruline funktsioon)
- * @param vorrand Lahendatav võrrandisüsteem
- * @param tulemus Vektor võrrandisüsteemidest, kuhu salvestab kõik sobivad süsteemid
- * @return 1, kui 'tulemus' pole tühi vektor, 0 muidu
+ * Leiab võrrandi iga polünoomi lahendid
+ * @return Vektor, mille igaks elemendiks on vektor ühe võrrandis oleva polünoomi kõikvõimalike lahenditega
+ * jäägi suhtes, millega koos ta on võrrandisse salvestatud
  */
-int Vorrandisusteem::lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>& tulemus) {
-    Polunoom x{};
-    Vorrandisusteem vahevorrand; // Siia tuleb esialgne võrrand algtegurites
-    map<long long, long long> tegurdatudArv;
-    vector<pair<Polunoom, Jaak>> vahetulemus;
+vector<vector<Jaak>> Vorrandisusteem::leiaPolunoomideLahendid() {
     vector<Jaak> vahejaagid; // kus polünoomiks 'x'
     vector<vector<Jaak>> vahejaagiVektoriteVektor;
     bool flag{false};
-    // Viib võrrandisüsteemi kujule, kus kõik moodulid kujul p^n
-    for (auto paar : vorrand.vorrandid) {
-        paar.second.moodul.tegurdaEnnast();
-        for (auto tegur : paar.second.moodul.tegurid)
-            vahevorrand.lisaVorrand(
-                Jaak(paar.second.jaak, Moodul(tegur.first, tegur.second)), paar.first);
-        tegurdatudArv.clear();
-    }
-    // Talletab kõikvõimalikud (sobivad) lahendid iga polünoomiga kongruentsi jaoks
-    for (auto vorrand : vahevorrand.vorrandid) {
+
+    for (auto vorrand : vorrandid) {
         for (auto jaak: vorrand.first.lahendaKongruents(vorrand.second)) {
-            for (auto vahejaagiVektor = vahejaagiVektoriteVektor.begin(); vahejaagiVektor < vahejaagiVektoriteVektor.end(); ++vahejaagiVektor)
-                for (auto it = vahejaagiVektor->begin(); it < vahejaagiVektor->end(); it++) {
+            for (auto vahejaagiVektor : vahejaagiVektoriteVektor)
+                for (auto it = vahejaagiVektor.begin(); it < vahejaagiVektor.end(); it++) {
                     if (jaak.moodul.algarv() == it->moodul.algarv() and
                             jaak.moodul.aste() > it->moodul.aste() and
                             jaak.jaak != it->jaak) {
                         flag = true;
                         break;
-                    }
+                            }
                     if (jaak.moodul.algarv() == it->moodul.algarv())
-                        vahejaagiVektor->erase(it);
+                        vahejaagiVektor.erase(it);
                 }
             if (flag)
                 break;
             vahejaagid.push_back(jaak);
         }
-        if (vahejaagid.empty()) {
-            cout << "Sisestatud võrrandisüsteemil ei leidu lahendeid.";
-            return 0;
-        }
         vahejaagiVektoriteVektor.push_back(vahejaagid);
         vahejaagid.clear();
-    }
+    } return vahejaagiVektoriteVektor;
+}
+/**
+ * Leiab kõik sisendiks antud võrrandisüsteemist lahenduvad võrrandisüsteemid, kus polünoomid on kujul 'x'
+ * @param vorrand Lahendatav võrrandisüsteem
+ * @param tulemus Vektor võrrandisüsteemidest, kuhu salvestab kõik sobivad süsteemid
+ * @return 1, kui 'tulemus' pole tühi vektor, 0 muidu
+ */
+int Vorrandisusteem::lihtsusta(vector<Vorrandisusteem>& tulemus) {
+    Polunoom x{};
+    map<long long, long long> tegurdatudArv;
+    vector<pair<Polunoom, Jaak>> vahetulemus;
+    vector<Jaak> vahejaagid; // kus polünoomiks 'x;
+
+    // Viib võrrandisüsteemi kujule, kus kõik moodulid kujul p^n
+    tegurdaMoodulid();
+
+    // Talletab kõikvõimalikud (sobivad) lahendid iga polünoomiga kongruentsi jaoks
+    vector<vector<Jaak>> vahejaagiVektoriteVektor = leiaPolunoomideLahendid();
+    if (vahejaagiVektoriteVektor.empty())
+        return 0;
 
     int korrutis = 1;
-    int suurus = vahejaagiVektoriteVektor.empty() ? vahejaagiVektoriteVektor.size() : 0;
+    int suurus = vahejaagiVektoriteVektor.size();
     vector<int> indeksid;
     for (int i = 0; i < suurus; i++)
-        indeksid[i] = 0;
+        indeksid.push_back(0);
     for (auto el : vahejaagiVektoriteVektor)
         korrutis *= el.size();
 
@@ -362,6 +369,7 @@ int Vorrandisusteem::lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>
             } indeksid[indeks] = 0;
         }
         // Kasutab indekseid kombinatsioonide leidmiseks
+        Vorrandisusteem vahevorrand;
         for (unsigned int j{0}; j < suurus; ++j)
             vahetulemus.emplace_back(x, vahejaagiVektoriteVektor[j][indeksid[j]]);
         vahevorrand.vorrandid.clear();
@@ -374,4 +382,17 @@ int Vorrandisusteem::lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>
         cout << "Sisestatud võrrandisüsteem pole lahenduv.";
         return 0;
     } return 1;
+}
+
+/**
+ * Kuvab võrrandisüsteemi konsoolis
+ * @param os ostream objekt
+ * @param vs Vorrandisusteem objekt
+ * @return ostream objekt, kuhu on salvestatud vastav sõne
+ */
+ostream& operator<<(ostream& os, Vorrandisusteem& vs) {
+    for (size_t i{0}; i < vs.vorrandid.size(); ++i) {
+        os << vs.vorrandid[i].first << " kongruentne arvuga " << vs.vorrandid[i].second.jaak <<
+            " mooduli " << vs.vorrandid[i].second.moodul << " järgi." << endl;
+    } return os;
 }

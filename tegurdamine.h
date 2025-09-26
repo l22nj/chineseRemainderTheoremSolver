@@ -4,7 +4,7 @@
 
 #ifndef TEGURDAMINE_H
 #define TEGURDAMINE_H
-#include "j22giteoreem.h"
+#include "jaagiteoreem.h"
 #include "tegurdamine.h"
 
 int leiaSuurimÜhistegur(int a, int b);

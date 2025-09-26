@@ -4,7 +4,7 @@
 
 #ifndef INTERFACE_H
 #define INTERFACE_H
-#include "j22giteoreem.h"
+#include "jaagiteoreem.h"
 
 Polunoom muudaTekstPolünoomiks(const std::string& s);
 void kuvaVõrrand(Vorrandisusteem v6rrand);

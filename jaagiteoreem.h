@@ -73,7 +73,9 @@ public:
     Jaak lahendaSusteem();
     bool kontroll();
     void tegurdaMoodulid();
-    int lihtsusta(Vorrandisusteem& vorrand, std::vector<Vorrandisusteem>& tulemus);
+    std::vector<std::vector<Jaak>> leiaPolunoomideLahendid();
+    int lihtsusta(std::vector<Vorrandisusteem>& tulemus);
+    friend std::ostream& operator<<(std::ostream& os, Vorrandisusteem& vs);
 };
 
 
