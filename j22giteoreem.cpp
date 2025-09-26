@@ -327,10 +327,10 @@ int lihtsusta(Vorrandisusteem& vorrand, vector<Vorrandisusteem>& tulemus) {
     }
 
     int korrutis = 1;
-    int suurus = vahejaagiVektoriteVektor.empty() ? vahejaagiVektoriteVektor.size() : 0;
+    int suurus = vahejaagiVektoriteVektor.size();
     vector<int> indeksid;
     for (int i = 0; i < suurus; i++)
-        indeksid[i] = 0;
+        indeksid.push_back(0);
     for (auto el : vahejaagiVektoriteVektor)
         korrutis *= el.size();
 
