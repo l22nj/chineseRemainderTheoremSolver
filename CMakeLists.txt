@@ -4,8 +4,8 @@ project(PROJEKT)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(PROJEKT main.cpp
-        j22giteoreem.cpp
-        j22giteoreem.h
+        jaagiteoreem.cpp
+        jaagiteoreem.h
         interface.cpp
         interface.h
         tegurdamine.cpp

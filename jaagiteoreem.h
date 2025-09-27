@@ -75,6 +75,7 @@ public:
     void tegurdaMoodulid();
     std::vector<std::vector<Jaak>> leiaPolunoomideLahendid();
     int lihtsusta(std::vector<Vorrandisusteem>& tulemus);
+    int leiaMooduliteVahimUhiskordne();
     friend std::ostream& operator<<(std::ostream& os, Vorrandisusteem& vs);
 };
 

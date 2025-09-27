@@ -212,7 +212,7 @@ void Moodul::tegurdaEnnast() {
  * @return Vastav pöördjääk
  */
 int Jaak::leiaPoordjaak() {
-    if (leiaSuurimÜhistegur(jaak, moodul.vaartus()) != 1) {
+    if (leiaSuurimUhistegur(jaak, moodul.vaartus()) != 1) {
         cout << "viga : Jaak::leiaPoordjaak() , jäägi ja mooduli SÜT != 1" << endl;
         return 0;
     }
@@ -328,6 +328,20 @@ vector<vector<Jaak>> Vorrandisusteem::leiaPolunoomideLahendid() {
         vahejaagid.clear();
     } return vahejaagiVektoriteVektor;
 }
+
+/**
+ * Leiab võrrandite mooduli väärtuste vähima ühiskordse
+ * @return VÜK
+ */
+int Vorrandisusteem::leiaMooduliteVahimUhiskordne() {
+    int mooduliteVahimUhiskordne = 1;
+    for (auto paar : vorrandid) {
+        mooduliteVahimUhiskordne /=
+            leiaSuurimUhistegur(mooduliteVahimUhiskordne, paar.second.moodul.vaartus());
+        mooduliteVahimUhiskordne *= paar.second.moodul.vaartus();
+    }
+    return mooduliteVahimUhiskordne;
+}
 /**
  * Leiab kõik sisendiks antud võrrandisüsteemist lahenduvad võrrandisüsteemid, kus polünoomid on kujul 'x'
  * @param vorrand Lahendatav võrrandisüsteem
@@ -349,12 +363,12 @@ int Vorrandisusteem::lihtsusta(vector<Vorrandisusteem>& tulemus) {
         return 0;
 
     int korrutis = 1;
+    for (auto el : vahejaagiVektoriteVektor)
+        korrutis *= el.size();
     int suurus = vahejaagiVektoriteVektor.size();
     vector<int> indeksid;
     for (int i = 0; i < suurus; i++)
         indeksid.push_back(0);
-    for (auto el : vahejaagiVektoriteVektor)
-        korrutis *= el.size();
 
     // Paneb eraldi polünomiaalsete kongruentside lahendid kokku kõikvõimalikeks lahenduvateks võrrandisüsteemideks
     for (unsigned int i{0}; i < korrutis; ++i) {

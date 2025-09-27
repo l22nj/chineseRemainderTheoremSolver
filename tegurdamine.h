@@ -7,7 +7,7 @@
 #include "jaagiteoreem.h"
 #include "tegurdamine.h"
 
-int leiaSuurimÜhistegur(int a, int b);
+int leiaSuurimUhistegur(int a, int b);
 bool kasOnRuut(long long a);
 bool kasOnAlgarv(long long a);
 bool isPerfectSquare(long long n);

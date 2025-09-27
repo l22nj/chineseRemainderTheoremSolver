@@ -50,6 +50,7 @@ void mainloop() {
         v6rrand.lisaVorrand(Jaak(j, Moodul(m)), muudaTekstPolünoomiks(sõne_p));
         sõne_p = "";
     }
+    cout << "VÜK: " << v6rrand.leiaMooduliteVahimUhiskordne();
     if (v6rrand.vorrandid.empty()) {
         cout << "Nägemiseni!";
         return;

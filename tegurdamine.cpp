@@ -13,7 +13,7 @@ using namespace std;
  * @param b Täisarv
  * @return Arvude 'a' ja 'b' suurim ühistegur
  */
-int leiaSuurimÜhistegur(int a, int b) {
+int leiaSuurimUhistegur(int a, int b) {
     while (true) {
         int temp = b;
         b = a % b;
