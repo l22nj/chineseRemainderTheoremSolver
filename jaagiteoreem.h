@@ -25,7 +25,7 @@ public:
     Polunoom votaTuletis();
     std::vector<Jaak> lahendaKongruents(Jaak& j);
 
-    long long vaartus(int x) const;
+    int vaartus(int x) const;
 };
 
 class Moodul {
@@ -52,8 +52,8 @@ public:
     int jaak;
     Moodul moodul;
     Jaak() = default;
-    Jaak(const int& j22k, const Moodul& moodul): jaak(j22k), moodul(moodul) {}
-    Jaak(const int& j22k, const long long& mod_algarv, const long long mod_aste): jaak(j22k)
+    Jaak(const int& jaak, const Moodul& moodul): jaak(jaak), moodul(moodul) {}
+    Jaak(const int& jaak, const long long& mod_algarv, const long long mod_aste): jaak(jaak)
     {
         Moodul moodul_m(mod_algarv, mod_aste);
         moodul = moodul_m;
@@ -66,9 +66,9 @@ class Vorrandisusteem {
 public:
     std::vector<std::pair<Polunoom, Jaak>> vorrandid;
     Vorrandisusteem() = default;
-    void lisaVorrand(const Jaak& j22k, const Polunoom& polünoom)
+    void lisaVorrand(const Jaak& jaak, const Polunoom& polünoom)
     {
-        vorrandid.emplace_back(polünoom, j22k);
+        vorrandid.emplace_back(polünoom, jaak);
     }
     Jaak lahendaSusteem();
     bool kontroll();

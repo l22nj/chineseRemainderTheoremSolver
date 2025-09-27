@@ -9,4 +9,6 @@ add_executable(PROJEKT main.cpp
         interface.cpp
         interface.h
         tegurdamine.cpp
-        tegurdamine.h)
+        tegurdamine.h
+        tester.cpp
+        tester.h)

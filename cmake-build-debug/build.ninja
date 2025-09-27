@@ -77,6 +77,13 @@ build CMakeFiles/PROJEKT.dir/tegurdamine.cpp.o: CXX_COMPILER__PROJEKT_unscanned_
   OBJECT_DIR = CMakeFiles/PROJEKT.dir
   OBJECT_FILE_DIR = CMakeFiles/PROJEKT.dir
 
+build CMakeFiles/PROJEKT.dir/tester.cpp.o: CXX_COMPILER__PROJEKT_unscanned_Debug /home/l22nj/Documents/CLionProjects/PROJEKT/tester.cpp || cmake_object_order_depends_target_PROJEKT
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/PROJEKT.dir/tester.cpp.o.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/PROJEKT.dir
+  OBJECT_FILE_DIR = CMakeFiles/PROJEKT.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PROJEKT
@@ -85,7 +92,7 @@ build CMakeFiles/PROJEKT.dir/tegurdamine.cpp.o: CXX_COMPILER__PROJEKT_unscanned_
 #############################################
 # Link the executable PROJEKT
 
-build PROJEKT: CXX_EXECUTABLE_LINKER__PROJEKT_Debug CMakeFiles/PROJEKT.dir/main.cpp.o CMakeFiles/PROJEKT.dir/jaagiteoreem.cpp.o CMakeFiles/PROJEKT.dir/interface.cpp.o CMakeFiles/PROJEKT.dir/tegurdamine.cpp.o
+build PROJEKT: CXX_EXECUTABLE_LINKER__PROJEKT_Debug CMakeFiles/PROJEKT.dir/main.cpp.o CMakeFiles/PROJEKT.dir/jaagiteoreem.cpp.o CMakeFiles/PROJEKT.dir/interface.cpp.o CMakeFiles/PROJEKT.dir/tegurdamine.cpp.o CMakeFiles/PROJEKT.dir/tester.cpp.o
   CONFIG = Debug
   DEP_FILE = CMakeFiles/PROJEKT.dir/link.d
   FLAGS = -g

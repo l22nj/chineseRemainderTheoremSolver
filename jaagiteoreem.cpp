@@ -76,7 +76,7 @@ Polunoom Polunoom::votaTuletis() {
  * @param x Muutuja väärtustus
  * @return Polünoomi väärtus antud arvu 'x' juures
  */
-long long Polunoom::vaartus(int x) const {
+int Polunoom::vaartus(int x) const {
     long long vaartus = 0;
     for (size_t i{0}; i < kordajad.size(); i++)
         vaartus += kordajad[i] * pow(x, i);
