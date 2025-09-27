@@ -17,6 +17,11 @@ void kuvaVõrrand(Vorrandisusteem v6rrand) {
     cout << v6rrand;
 }
 
+/**
+ * Muudab sõne polünoomiks
+ * @param s Polünoom sõnena
+ * @return Polünoom klassi Polunoom objektina
+ */
 Polunoom muudaTekstPolünoomiks(const string& s) {
     vector<int> v;
     string sõne = s;
@@ -28,14 +33,15 @@ Polunoom muudaTekstPolünoomiks(const string& s) {
     return pol;
 }
 
-void mainloop() {
-    Vorrandisusteem v6rrand;
-    vector<Vorrandisusteem> v6rrandid;
-    vector<Jaak> tulemus;
+/**
+ * Võtab kasutajalt sisendi ja koostab selle põhjal võrrandisüsteemi
+ * @return Lahendatav võrrandisüsteem
+ */
+Vorrandisusteem sisendiTsukkel() {
+    Vorrandisusteem vs;
     int j, m;
     string sõne_p;
     string s;
-
     cout << "HIINA JÄÄGITEOREEMI ABIL KONGRUENTSISÜSTEEMI LAHENDAJA" << endl;
     cout << "Peate sisestama ükshaaval polünoomid, jäägid ja moodulid" << endl;
     cout << "Kui soovite lõpetada, sisestage POLÜNOOMI asemel 'L' (muul ajal lõpetada ei saa)" << endl;
@@ -47,24 +53,27 @@ void mainloop() {
         cout << "Sisesta jääk ja moodul (nt '2 9' - st jääk 2 mooduli 9 järgi): ";
         getline(cin, s);
         stringstream(s) >> j >> m;
-        v6rrand.lisaVorrand(Jaak(j, Moodul(m)), muudaTekstPolünoomiks(sõne_p));
+        vs.lisaVorrand(Jaak(j, Moodul(m)), muudaTekstPolünoomiks(sõne_p));
         sõne_p = "";
     }
-    cout << "VÜK: " << v6rrand.leiaMooduliteVahimUhiskordne();
-    if (v6rrand.vorrandid.empty()) {
+    return vs;
+}
+
+/**
+ * Programmi põhitöö main.cpp faili jaoks
+ * main.cpp failis saab kasutada selle asemel nt testereid
+ */
+void mainloop() {
+    Vorrandisusteem vs = sisendiTsukkel();
+    vector<Vorrandisusteem> vorrandisusteemid;
+    if (vs.vorrandid.empty()) {
         cout << "Nägemiseni!";
         return;
     }
     cout << endl << "Teie sisestatud võrrandisüsteem: " << endl;
-    kuvaVõrrand(v6rrand);
-    if (v6rrand.lihtsusta(v6rrandid) == 0)
-        return;
+    kuvaVõrrand(vs);
     cout << endl << "Sellest tulenevad lahenduvad süsteemid on (eraldatud tühja reaga): " << endl;
-    for (auto el : v6rrandid) {
-        kuvaVõrrand(el);
-        tulemus.push_back(el.lahendaSusteem()); // kohe lahendab ära kah
-        cout << endl;
-    }
+    vector<Jaak> tulemus = vs.lahendaSusteemJaKuva();
     cout << "Seega iga x avaldub ühel järgnevatest kujudest: " << endl;
     for (auto el : tulemus)
         cout << "x = " << el.jaak << " + t*" << el.moodul <<endl;

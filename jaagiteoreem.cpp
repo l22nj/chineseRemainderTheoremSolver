@@ -238,7 +238,7 @@ void Jaak::normeeri() {
  * Kui lahend leidub, siis üheselt lahenduv!
  * @return Vastav jääk kindla mooduli suhtes
  */
-Jaak Vorrandisusteem::lahendaSusteem() {
+Jaak Vorrandisusteem::lahendaLihtsustatudSusteem() {
     // Kontrollib, kas moodulid on ilma ühiste teguriteta (hiina jäägiteoreemi tingimus)
     if (kontroll() != true) {
         cout << "Moodulid pole ühisteguriteta." << endl;
@@ -396,6 +396,21 @@ int Vorrandisusteem::lihtsusta(vector<Vorrandisusteem>& tulemus) {
         cout << "Sisestatud võrrandisüsteem pole lahenduv.";
         return 0;
     } return 1;
+}
+
+/**
+ * Lihtsustab süsteemi ja leiab kõik lahendid
+ * @return Kõikvõimalikud lahendid
+ */
+vector<Jaak> Vorrandisusteem::lahendaSusteemJaKuva() {
+    vector<Jaak> tulemus;
+    vector<Vorrandisusteem> lihtsustatudSusteemid;
+    lihtsusta(lihtsustatudSusteemid);
+    for (auto vs : lihtsustatudSusteemid) {
+        cout << vs << endl;
+        tulemus.push_back(vs.lahendaLihtsustatudSusteem());
+    }
+    return tulemus;
 }
 
 /**

@@ -70,7 +70,8 @@ public:
     {
         vorrandid.emplace_back(polünoom, jaak);
     }
-    Jaak lahendaSusteem();
+    Jaak lahendaLihtsustatudSusteem();
+    std::vector<Jaak> lahendaSusteemJaKuva();
     bool kontroll();
     void tegurdaMoodulid();
     std::vector<std::vector<Jaak>> leiaPolunoomideLahendid();
