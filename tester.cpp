@@ -8,7 +8,13 @@
 
 using namespace std;
 
- bool bruteforceTest(Vorrandisusteem& vs, int i) {
+/**
+ * Testib brute force meetodil, kas antud arv sobib võrrandisüsteemi lahendiks
+ * @param vs Vorrandisusteem objekt
+ * @param i Arv, mida võrrandisüsteemi lahendiks proovitakse
+ * @return Tõeväärtus
+ */
+bool bruteforceTest(Vorrandisusteem& vs, int i) {
     for (auto& vorrand : vs.vorrandid) {
         Polunoom polunoom = vorrand.first;
         Jaak jaak = vorrand.second;
@@ -21,6 +27,11 @@ using namespace std;
     } return true;
 }
 
+/**
+ * Leiab brute force meetodil kõik sobivad lahendid võrrandisüsteemile
+ * @param vs Vorrandisusteem objekt
+ * @return Kõik lahendid, mis rahuldavad antud võrrandisüsteemi
+ */
 vector<Jaak> bruteforceLahendaJaKuva(Vorrandisusteem& vs) {
     vector<Jaak> tulemused;
     Moodul moodul{vs.leiaMooduliteVahimUhiskordne()};
