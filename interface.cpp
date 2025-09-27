@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+
+#include "tester.h"
 using namespace std;
 
 /**
@@ -65,7 +67,6 @@ Vorrandisusteem sisendiTsukkel() {
  */
 void mainloop() {
     Vorrandisusteem vs = sisendiTsukkel();
-    vector<Vorrandisusteem> vorrandisusteemid;
     if (vs.vorrandid.empty()) {
         cout << "Nägemiseni!";
         return;
@@ -78,6 +79,21 @@ void mainloop() {
     for (auto el : tulemus)
         cout << "x = " << el.jaak << " + t*" << el.moodul <<endl;
     cout << "Kus t on suvaline täisarv.";
+}
+
+void testermainloop() {
+    cout << "------TEGU ON TESTERFUNKTSIOONIGA------" << endl;
+    Vorrandisusteem vs = sisendiTsukkel();
+    if (vs.vorrandid.empty()) {
+        cout << "Nägemiseni!";
+        return;
+    }
+    cout << endl << "Teie sisestatud võrrandisüsteem: " << endl;
+    kuvaVõrrand(vs);
+    if (tester(vs))
+        cout << "Kõik lahendid klapivad :)" << endl;
+    else
+        cout << "Kuskil viga!" << endl;
 }
 
 

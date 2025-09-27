@@ -9,5 +9,6 @@
 Polunoom muudaTekstPolünoomiks(const std::string& s);
 void kuvaVõrrand(Vorrandisusteem v6rrand);
 void mainloop();
+void testermainloop();
 
 #endif //INTERFACE_H

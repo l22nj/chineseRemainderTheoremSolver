@@ -6,6 +6,8 @@
 #define PROJEKT_TESTER_H
 #include "jaagiteoreem.h"
 
-std::vector<Jaak> testiVorrand(std::vector<Jaak>);
+std::vector<Jaak> bruteforceLahendaJaKuva(Vorrandisusteem&);
+bool tester(Vorrandisusteem& vs);
+bool bruteforceTest(Vorrandisusteem& vs, int) ;
 
 #endif //PROJEKT_TESTER_H

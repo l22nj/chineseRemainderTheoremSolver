@@ -293,7 +293,6 @@ void Vorrandisusteem::tegurdaMoodulid() {
     } vorrandid.clear();
     for (auto paar : uuedVorrandid) {
         vorrandid.push_back(paar);
-        cout << paar.first << " + " << paar.second.jaak << " + " << paar.second.moodul;
     }
 }
 
@@ -424,4 +423,16 @@ ostream& operator<<(ostream& os, Vorrandisusteem& vs) {
         os << vs.vorrandid[i].first << " kongruentne arvuga " << vs.vorrandid[i].second.jaak <<
             " mooduli " << vs.vorrandid[i].second.moodul << " järgi." << endl;
     } return os;
+}
+
+/**
+ * Sorteerib jäägivektori normeeritud jääkide väärtuse järgi kahanevasse järjekorda
+ * @param v Jäägivektor
+ */
+void sorteeriJaagiVektor(vector<Jaak>& v) {
+    sort(v.begin(), v.end(), [](Jaak a, Jaak b) {
+        a.normeeri();
+        b.normeeri();
+        return a.jaak < b.jaak;
+    });
 }

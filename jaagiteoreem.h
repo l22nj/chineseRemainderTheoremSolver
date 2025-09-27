@@ -80,6 +80,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os, Vorrandisusteem& vs);
 };
 
+void sorteeriJaagiVektor(std::vector<Jaak>& v);
 
 
 #endif //J22GITEOREEM_H
